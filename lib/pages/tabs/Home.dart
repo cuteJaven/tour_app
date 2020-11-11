@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../Drawer.dart';
+import '../Home/Drawer.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -44,9 +44,9 @@ class _BodyState extends State<Body> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         RaisedButton(
-          child: Text('左侧边栏滑动打开'),
+          child: Text('Switch to Search Page'),
           onPressed: () {
-            //Navigator.pushNamed(context, '/search', arguments: {'id': 123});
+            Navigator.pushNamed(context, '/search');
           },
           color: Theme.of(context).accentColor,
           textTheme: ButtonTextTheme.primary,

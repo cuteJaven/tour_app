@@ -1,27 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:helloFlutter/pages/Scenery/Scenery.dart';
-import 'package:helloFlutter/pages/Scenery/scenery1.dart';
-import 'package:helloFlutter/pages/Scenery/scenery2.dart';
+import 'package:helloFlutter/pages/Account/user/Login.dart';
+import 'package:helloFlutter/pages/Account/user/RegisterFirst.dart';
+import 'package:helloFlutter/pages/Account/user/RegisterSecond.dart';
+import 'package:helloFlutter/pages/Booking/Form.dart';
+import 'package:helloFlutter/pages/Home/Scenery/Scenery.dart';
+import 'package:helloFlutter/pages/Home/Scenery/scenery1.dart';
+import 'package:helloFlutter/pages/Home/Scenery/scenery2.dart';
+import 'package:helloFlutter/pages/Home/Search.dart';
 import 'package:helloFlutter/pages/Tabs.dart';
-import 'package:helloFlutter/pages/Form.dart';
-import 'package:helloFlutter/pages/Search.dart';
-import 'package:helloFlutter/user/Login.dart';
-import 'package:helloFlutter/user/RegisterFirst.dart';
-import 'package:helloFlutter/user/RegisterSecond.dart';
+
 
 final routes = {
   '/': (context) => Tabs(),
   '/form': (context) => FormPage(),
-  '/search': (context, {arguments}) => SearchPage(arguments: arguments),
+  '/search': (context) => SearchPage(),
   '/product': (context) => SceneryPage(),
   '/scenery1': (context) => Scenery1Page(),
   '/scenery2': (context) => Scenery2Page(),
-  '/login':(context)=>LoginPage(),
-  '/register1':(context)=>RegisterFirstPage(),
-  '/register2':(context)=>RegisterSecondPage(),
-
-
-
+  '/login': (context) => LoginPage(),
+  '/register1': (context) => RegisterFirstPage(),
+  '/register2': (context) => RegisterSecondPage(),
 };
 
 Function onGenerateRoute = (settings) {
