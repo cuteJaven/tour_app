@@ -4,7 +4,10 @@ class ChatsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Chat Room'),
+        centerTitle: true,
+        title: Text('Chat Room',
+          style:
+          TextStyle(color: Colors.lightBlueAccent, fontWeight: FontWeight.w600),),
       ),
       body: Body(),
     );

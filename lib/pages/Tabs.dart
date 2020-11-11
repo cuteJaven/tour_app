@@ -5,7 +5,7 @@ import 'tabs/Chats.dart';
 import 'tabs/Account.dart';
 
 class Tabs extends StatefulWidget {
-  final index;
+  final int index;
 
   Tabs({this.index = 0});
 
@@ -31,13 +31,14 @@ class _TabsState extends State<Tabs> {
       body: this._pageList[this._currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
-        onTap: (indexx) {
+        onTap: (x) {
           setState(() {
-            this._currentIndex = indexx;
+            this._currentIndex = x;
           });
         },
         iconSize: 45.0,
-        fixedColor: Colors.blue,
+        unselectedItemColor: Colors.black38,
+        fixedColor: Colors.lightBlueAccent,
         type: BottomNavigationBarType.fixed,
         items: [
           BottomNavigationBarItem(
@@ -66,11 +67,13 @@ class _TabsState extends State<Tabs> {
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(40), color: Colors.white),
         child: FloatingActionButton(
+          backgroundColor: Colors.white38,
+          focusColor: Colors.lightBlueAccent,
           onPressed: () {
             //以后用来发新的帖子
             print('发帖！');
           },
-          child: Icon(Icons.add),
+          child: Icon(Icons.add,color: Colors.lightBlueAccent,),
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,

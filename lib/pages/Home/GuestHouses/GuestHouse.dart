@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
-
-class SceneryPage extends StatefulWidget {
+class GuestHousePage extends StatefulWidget {
   @override
-  _SceneryPageState createState() => _SceneryPageState();
+  _GuestHousePageState createState() => _GuestHousePageState();
 }
 
-class _SceneryPageState extends State<SceneryPage> {
+class _GuestHousePageState extends State<GuestHousePage> {
   @override
   Widget build(BuildContext context) {
     return GridView(
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2, //横轴两个子widget
             childAspectRatio: 1.0 //宽高比为1时，子widget
-            ),
+        ),
         children: <Widget>[
           InkWell(
             child: Padding(
@@ -23,10 +22,10 @@ class _SceneryPageState extends State<SceneryPage> {
                   // 边色与边宽度
                   image: DecorationImage(
                       image: NetworkImage(
-                        'https://cdn.pixabay.com/photo/2013/07/18/10/56/railroad-163518_960_720.jpg',
+                        'https://cdn.pixabay.com/photo/2017/08/31/06/58/taiwan-2699628_960_720.jpg',
                       ),
                       fit: BoxFit.cover // 填满
-                      ),
+                  ),
 
                   borderRadius: BorderRadius.all(
                     Radius.circular(35.0),
@@ -45,10 +44,10 @@ class _SceneryPageState extends State<SceneryPage> {
                   // 边色与边宽度
                   image: DecorationImage(
                       image: NetworkImage(
-                        'https://cdn.pixabay.com/photo/2016/05/05/02/37/sunset-1373171_960_720.jpg',
+                        'https://cdn.pixabay.com/photo/2019/12/03/06/00/ancient-architecture-4669311_960_720.jpg',
                       ),
                       fit: BoxFit.cover // 填满
-                      ),
+                  ),
                   borderRadius: BorderRadius.circular((20.0)),
                 ),
               ),
@@ -64,10 +63,10 @@ class _SceneryPageState extends State<SceneryPage> {
                   // 边色与边宽度
                   image: DecorationImage(
                       image: NetworkImage(
-                        'https://cdn.pixabay.com/photo/2014/08/01/00/08/pier-407252_960_720.jpg',
+                        'https://cdn.pixabay.com/photo/2017/04/07/05/49/countryside-2210249_960_720.jpg',
                       ),
                       fit: BoxFit.cover // 填满
-                      ),
+                  ),
                   borderRadius: BorderRadius.circular((20.0)),
                 ),
               ),
@@ -83,10 +82,10 @@ class _SceneryPageState extends State<SceneryPage> {
                   // 边色与边宽度
                   image: DecorationImage(
                       image: NetworkImage(
-                        'https://cdn.pixabay.com/photo/2013/07/18/20/26/sea-164989_960_720.jpg',
+                        'https://cdn.pixabay.com/photo/2017/04/07/05/56/countryside-2210268_960_720.jpg',
                       ),
                       fit: BoxFit.cover // 填满
-                      ),
+                  ),
                   borderRadius: BorderRadius.circular((20.0)),
                 ),
               ),
@@ -102,10 +101,10 @@ class _SceneryPageState extends State<SceneryPage> {
                   // 边色与边宽度
                   image: DecorationImage(
                       image: NetworkImage(
-                        'https://cdn.pixabay.com/photo/2012/08/06/00/53/bridge-53769_960_720.jpg',
+                        'https://cdn.pixabay.com/photo/2017/05/21/17/02/hotel-2331754_960_720.jpg',
                       ),
                       fit: BoxFit.cover // 填满
-                      ),
+                  ),
                   borderRadius: BorderRadius.circular((20.0)),
                 ),
               ),
@@ -121,10 +120,10 @@ class _SceneryPageState extends State<SceneryPage> {
                   // 边色与边宽度
                   image: DecorationImage(
                       image: NetworkImage(
-                        'https://cdn.pixabay.com/photo/2013/07/25/01/31/forest-166733_960_720.jpg',
+                        'https://cdn.pixabay.com/photo/2020/04/25/08/42/bed-and-breakfast-5089926_960_720.jpg',
                       ),
                       fit: BoxFit.cover // 填满
-                      ),
+                  ),
                   borderRadius: BorderRadius.circular((20.0)),
                 ),
               ),
