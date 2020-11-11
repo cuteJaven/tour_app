@@ -48,7 +48,7 @@ class _BodyState extends State<Body> {
               Future.delayed(Duration(seconds: 1), () {
                 //Navigator.of(context).pop();
                 Navigator.of(context).pushAndRemoveUntil(
-                    MaterialPageRoute(builder: (context) => Tabs(index: 2)),
+                    MaterialPageRoute(builder: (context) => Tabs(index: 3)),
                     (route) => route == null);
                 print('延时1s执行');
               });
