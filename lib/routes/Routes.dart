@@ -10,11 +10,14 @@ import 'package:helloFlutter/pages/Home/Scenery/scenery1.dart';
 import 'package:helloFlutter/pages/Home/Scenery/scenery2.dart';
 import 'package:helloFlutter/pages/Tabs.dart';
 import 'package:helloFlutter/pages/tabs/Home.dart';
+import 'package:helloFlutter/services/auth.dart';
+import 'package:provider/provider.dart';
+import 'package:helloFlutter/models/user.dart';
 
 
 final routes = {
   '/': (context) => Tabs(),
-  '/home':(context) => HomePage(),
+  '/home': (context) => HomePage(),
   '/form': (context) => FormPage(),
   '/product': (context) => SceneryPage(),
   '/scenery': (context) => SceneryPage(),
@@ -25,7 +28,6 @@ final routes = {
   '/login': (context) => LoginPage(),
   '/register1': (context) => RegisterFirstPage(),
   '/register2': (context) => RegisterSecondPage(),
-
 };
 
 Function onGenerateRoute = (settings) {
@@ -35,13 +37,20 @@ Function onGenerateRoute = (settings) {
   if (pageContentBuilder != null) {
     if (settings.arguments != null) {
       return MaterialPageRoute(
-          builder: (context) =>
-              pageContentBuilder(context, arguments: settings.arguments));
+        builder: (context) => StreamProvider<User>.value(
+          value: AuthService().userStream,
+          child: pageContentBuilder(context, arguments: settings.arguments),
+        ),
+      );
     } else {
       return MaterialPageRoute(
-          builder: (context) => pageContentBuilder(context));
+        builder: (context) => StreamProvider<User>.value(
+          value: AuthService().userStream,
+          child: pageContentBuilder(context),
+        ),
+      );
     }
   }
   //下面这句话仅防报错，没啥用
-  return MaterialPageRoute(builder: (context) => pageContentBuilder(context));
+  return null;
 };

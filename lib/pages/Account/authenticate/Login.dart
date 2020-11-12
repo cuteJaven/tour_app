@@ -41,7 +41,7 @@ class _LoginPageState extends State<LoginPage> {
                     print('error logging in');
                   } else {
                     print('logged in');
-                    print(result);
+                    print(result.uid);
                     final snackBar = SnackBar(
                       content: Text('Succeed!'),
                       action: SnackBarAction(

@@ -5,7 +5,10 @@ class UserInfoPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('My Account'),
+        centerTitle: true,
+        title: Text('My Account',
+          style:
+          TextStyle(color: Colors.lightBlueAccent, fontWeight: FontWeight.w600),),
       ),
       body: Body(),
     );
