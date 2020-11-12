@@ -1,53 +1,67 @@
 import 'package:flutter/material.dart';
-class LoginPage extends StatelessWidget {
+import 'package:helloFlutter/services/auth.dart';
+
+class LoginPage extends StatefulWidget {
+  @override
+  _LoginPageState createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  final AuthService _auth = AuthService();
+
   @override
   Widget build(BuildContext context) {
+    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Login'),
-      ),
-      body: Body(),
-    );
-  }
-}
-class Body extends StatefulWidget {
-  @override
-  _BodyState createState() => _BodyState();
-}
-
-class _BodyState extends State<Body> {
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        children: [
-          SizedBox(height: 40,),
-          Text('请输入账号密码'),
-          SizedBox(height: 40,),
-          RaisedButton(
-            child: Text('登录'),
-            onPressed: (){
-              final snackBar = SnackBar(
-                content: Text('登录成功!'),
-                action: SnackBarAction(
-                  label: 'Undo',
-                  onPressed: () {
-                    // Some code to undo the change.
-                  },
-                ),
-              );
-              //widget.scaffoldKey.currentState.showSnackBar(snackBar);
-              Scaffold.of(context).showSnackBar(snackBar);
-              Future.delayed(Duration(seconds: 1), (){
-                Navigator.of(context).pop();
-                print('延时1s执行');
-              });
-
-            },
+        key: _scaffoldKey,
+        appBar: AppBar(
+          elevation: 0.0,
+          title: Text(
+            'Login',
+            style: TextStyle(
+              color: Colors.lightBlueAccent,
+              fontWeight: FontWeight.w600,
+            ),
           ),
-        ],
-      ),
-    );
+        ),
+        body: Container(
+          padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
+          child: Column(
+            children: [
+              Text('请输入账号密码'),
+              SizedBox(
+                height: 40,
+              ),
+              RaisedButton(
+                child: Text('Log in anon'),
+                onPressed: () async {
+                  //因为有可能返回User或者null，所以是dynamic
+                  dynamic result = await _auth.signInAnon();
+                  if (result == null) {
+                    print('error logging in');
+                  } else {
+                    print('logged in');
+                    print(result);
+                    final snackBar = SnackBar(
+                      content: Text('Succeed!'),
+                      action: SnackBarAction(
+                        label: '^o^',
+                        onPressed: () {
+                          // Some code to undo the change.
+                        },
+                      ),
+                    );
+                    _scaffoldKey.currentState.showSnackBar(snackBar);
+                    //Scaffold.of(context).showSnackBar(snackBar);
+                    Future.delayed(Duration(seconds: 1), () {
+                      Navigator.of(context).pop();
+                      print('延时1s执行');
+                    });
+                  }
+                },
+              ),
+            ],
+          ),
+        ));
   }
 }
-
