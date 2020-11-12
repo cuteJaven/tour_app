@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as Http;
 
 class SceneryPage extends StatefulWidget {
   @override
@@ -6,28 +8,61 @@ class SceneryPage extends StatefulWidget {
 }
 
 class _SceneryPageState extends State<SceneryPage> {
+  List data = [];
+  String url = '';
+  String time = '';
+  String others = '';
+  String jsonData = '';
+  String result = '';
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Http.get('https://reach-bf00b.firebaseio.com/PostedPic/Scenery.json')
+        .then((resp) {
+      result = resp.body;
+      setState(() {
+        data = json.decode(result);
+      });
+    }).catchError((e) {
+      print('error!');
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return GridView(
+    return data.length == 0
+        ? Text(
+            '请稍后',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+                color: Colors.lightBlueAccent,
+                fontSize: 40,
+                fontWeight: FontWeight.w600),
+          )
+        : buildGridView();
+  }
+
+  GridView buildGridView() {
+    return GridView.builder(
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2, //横轴两个子widget
-            childAspectRatio: 1.0 //宽高比为1时，子widget
+            crossAxisCount: 2, //每行两列
+            childAspectRatio: 1.0 //显示区域宽高相等
             ),
-        children: <Widget>[
-          InkWell(
+        itemCount: data.length,
+        itemBuilder: (context, index) {
+          return InkWell(
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Container(
                 decoration: BoxDecoration(
-                  border: Border.all(color: Colors.white38, width: 0.5),
                   // 边色与边宽度
+                  border: Border.all(color: Colors.white38, width: 0.5),
                   image: DecorationImage(
-                      image: NetworkImage(
-                        'https://cdn.pixabay.com/photo/2013/07/18/10/56/railroad-163518_960_720.jpg',
-                      ),
+                      image: NetworkImage(data[index]['url']),
                       fit: BoxFit.cover // 填满
                       ),
-
                   borderRadius: BorderRadius.all(
                     Radius.circular(35.0),
                   ),
@@ -35,102 +70,7 @@ class _SceneryPageState extends State<SceneryPage> {
               ),
             ),
             onTap: () {},
-          ),
-          InkWell(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.white38, width: 0.5),
-                  // 边色与边宽度
-                  image: DecorationImage(
-                      image: NetworkImage(
-                        'https://cdn.pixabay.com/photo/2016/05/05/02/37/sunset-1373171_960_720.jpg',
-                      ),
-                      fit: BoxFit.cover // 填满
-                      ),
-                  borderRadius: BorderRadius.circular((20.0)),
-                ),
-              ),
-            ),
-            onTap: () {},
-          ),
-          InkWell(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.white38, width: 0.5),
-                  // 边色与边宽度
-                  image: DecorationImage(
-                      image: NetworkImage(
-                        'https://cdn.pixabay.com/photo/2014/08/01/00/08/pier-407252_960_720.jpg',
-                      ),
-                      fit: BoxFit.cover // 填满
-                      ),
-                  borderRadius: BorderRadius.circular((20.0)),
-                ),
-              ),
-            ),
-            onTap: () {},
-          ),
-          InkWell(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.white38, width: 0.5),
-                  // 边色与边宽度
-                  image: DecorationImage(
-                      image: NetworkImage(
-                        'https://cdn.pixabay.com/photo/2013/07/18/20/26/sea-164989_960_720.jpg',
-                      ),
-                      fit: BoxFit.cover // 填满
-                      ),
-                  borderRadius: BorderRadius.circular((20.0)),
-                ),
-              ),
-            ),
-            onTap: () {},
-          ),
-          InkWell(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.white38, width: 0.5),
-                  // 边色与边宽度
-                  image: DecorationImage(
-                      image: NetworkImage(
-                        'https://cdn.pixabay.com/photo/2012/08/06/00/53/bridge-53769_960_720.jpg',
-                      ),
-                      fit: BoxFit.cover // 填满
-                      ),
-                  borderRadius: BorderRadius.circular((20.0)),
-                ),
-              ),
-            ),
-            onTap: () {},
-          ),
-          InkWell(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.white38, width: 0.5),
-                  // 边色与边宽度
-                  image: DecorationImage(
-                      image: NetworkImage(
-                        'https://cdn.pixabay.com/photo/2013/07/25/01/31/forest-166733_960_720.jpg',
-                      ),
-                      fit: BoxFit.cover // 填满
-                      ),
-                  borderRadius: BorderRadius.circular((20.0)),
-                ),
-              ),
-            ),
-            onTap: () {},
-          ),
-        ]);
+          );
+        });
   }
 }

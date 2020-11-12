@@ -1,32 +1,68 @@
 import 'package:flutter/material.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as Http;
+
 class GuestHousePage extends StatefulWidget {
   @override
   _GuestHousePageState createState() => _GuestHousePageState();
 }
 
 class _GuestHousePageState extends State<GuestHousePage> {
+  List data = [];
+  String url = '';
+  String time = '';
+  String others = '';
+  String jsonData = '';
+  String result = '';
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Http.get('https://reach-bf00b.firebaseio.com/PostedPic/GuestHouse.json')
+        .then((resp) {
+      result = resp.body;
+      setState(() {
+        data = json.decode(result);
+      });
+    }).catchError((e) {
+      print('error!');
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return GridView(
+    return data.length == 0
+        ? Text(
+            '请稍后',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+                color: Colors.lightBlueAccent,
+                fontSize: 40,
+                fontWeight: FontWeight.w600),
+          )
+        : buildGridView();
+  }
+
+  GridView buildGridView() {
+    return GridView.builder(
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2, //横轴两个子widget
-            childAspectRatio: 1.0 //宽高比为1时，子widget
-        ),
-        children: <Widget>[
-          InkWell(
+            crossAxisCount: 2, //每行两列
+            childAspectRatio: 1.0 //显示区域宽高相等
+            ),
+        itemCount: data.length,
+        itemBuilder: (context, index) {
+          return InkWell(
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Container(
                 decoration: BoxDecoration(
-                  border: Border.all(color: Colors.white38, width: 0.5),
                   // 边色与边宽度
+                  border: Border.all(color: Colors.white38, width: 0.5),
                   image: DecorationImage(
-                      image: NetworkImage(
-                        'https://cdn.pixabay.com/photo/2017/08/31/06/58/taiwan-2699628_960_720.jpg',
-                      ),
+                      image: NetworkImage(data[index]['url']),
                       fit: BoxFit.cover // 填满
-                  ),
-
+                      ),
                   borderRadius: BorderRadius.all(
                     Radius.circular(35.0),
                   ),
@@ -34,102 +70,7 @@ class _GuestHousePageState extends State<GuestHousePage> {
               ),
             ),
             onTap: () {},
-          ),
-          InkWell(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.white38, width: 0.5),
-                  // 边色与边宽度
-                  image: DecorationImage(
-                      image: NetworkImage(
-                        'https://cdn.pixabay.com/photo/2019/12/03/06/00/ancient-architecture-4669311_960_720.jpg',
-                      ),
-                      fit: BoxFit.cover // 填满
-                  ),
-                  borderRadius: BorderRadius.circular((20.0)),
-                ),
-              ),
-            ),
-            onTap: () {},
-          ),
-          InkWell(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.white38, width: 0.5),
-                  // 边色与边宽度
-                  image: DecorationImage(
-                      image: NetworkImage(
-                        'https://cdn.pixabay.com/photo/2017/04/07/05/49/countryside-2210249_960_720.jpg',
-                      ),
-                      fit: BoxFit.cover // 填满
-                  ),
-                  borderRadius: BorderRadius.circular((20.0)),
-                ),
-              ),
-            ),
-            onTap: () {},
-          ),
-          InkWell(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.white38, width: 0.5),
-                  // 边色与边宽度
-                  image: DecorationImage(
-                      image: NetworkImage(
-                        'https://cdn.pixabay.com/photo/2017/04/07/05/56/countryside-2210268_960_720.jpg',
-                      ),
-                      fit: BoxFit.cover // 填满
-                  ),
-                  borderRadius: BorderRadius.circular((20.0)),
-                ),
-              ),
-            ),
-            onTap: () {},
-          ),
-          InkWell(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.white38, width: 0.5),
-                  // 边色与边宽度
-                  image: DecorationImage(
-                      image: NetworkImage(
-                        'https://cdn.pixabay.com/photo/2017/05/21/17/02/hotel-2331754_960_720.jpg',
-                      ),
-                      fit: BoxFit.cover // 填满
-                  ),
-                  borderRadius: BorderRadius.circular((20.0)),
-                ),
-              ),
-            ),
-            onTap: () {},
-          ),
-          InkWell(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.white38, width: 0.5),
-                  // 边色与边宽度
-                  image: DecorationImage(
-                      image: NetworkImage(
-                        'https://cdn.pixabay.com/photo/2020/04/25/08/42/bed-and-breakfast-5089926_960_720.jpg',
-                      ),
-                      fit: BoxFit.cover // 填满
-                  ),
-                  borderRadius: BorderRadius.circular((20.0)),
-                ),
-              ),
-            ),
-            onTap: () {},
-          ),
-        ]);
+          );
+        });
   }
 }

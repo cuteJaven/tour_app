@@ -1,32 +1,68 @@
 import 'package:flutter/material.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as Http;
+
 class FoodPage extends StatefulWidget {
   @override
   _FoodPageState createState() => _FoodPageState();
 }
 
 class _FoodPageState extends State<FoodPage> {
+  List data = [];
+  String url = '';
+  String time = '';
+  String others = '';
+  String jsonData = '';
+  String result = '';
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Http.get('https://reach-bf00b.firebaseio.com/PostedPic/Food.json')
+        .then((resp) {
+      result = resp.body;
+      setState(() {
+        data = json.decode(result);
+      });
+    }).catchError((e) {
+      print('error!');
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return GridView(
+    return data.length == 0
+        ? Text(
+            '请稍后',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+                color: Colors.lightBlueAccent,
+                fontSize: 40,
+                fontWeight: FontWeight.w600),
+          )
+        : buildGridView();
+  }
+
+  GridView buildGridView() {
+    return GridView.builder(
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2, //横轴两个子widget
-            childAspectRatio: 1.0 //宽高比为1时，子widget
-        ),
-        children: <Widget>[
-          InkWell(
+            crossAxisCount: 2, //每行两列
+            childAspectRatio: 1.0 //显示区域宽高相等
+            ),
+        itemCount: data.length,
+        itemBuilder: (context, index) {
+          return InkWell(
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Container(
                 decoration: BoxDecoration(
-                  border: Border.all(color: Colors.white38, width: 0.5),
                   // 边色与边宽度
+                  border: Border.all(color: Colors.white38, width: 0.5),
                   image: DecorationImage(
-                      image: NetworkImage(
-                        'https://cdn.pixabay.com/photo/2016/12/26/17/28/food-1932466_960_720.jpg',
-                      ),
+                      image: NetworkImage(data[index]['url']),
                       fit: BoxFit.cover // 填满
-                  ),
-
+                      ),
                   borderRadius: BorderRadius.all(
                     Radius.circular(35.0),
                   ),
@@ -34,102 +70,7 @@ class _FoodPageState extends State<FoodPage> {
               ),
             ),
             onTap: () {},
-          ),
-          InkWell(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.white38, width: 0.5),
-                  // 边色与边宽度
-                  image: DecorationImage(
-                      image: NetworkImage(
-                        'https://cdn.pixabay.com/photo/2015/10/02/15/59/olive-oil-968657_960_720.jpg',
-                      ),
-                      fit: BoxFit.cover // 填满
-                  ),
-                  borderRadius: BorderRadius.circular((20.0)),
-                ),
-              ),
-            ),
-            onTap: () {},
-          ),
-          InkWell(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.white38, width: 0.5),
-                  // 边色与边宽度
-                  image: DecorationImage(
-                      image: NetworkImage(
-                        'https://cdn.pixabay.com/photo/2014/11/05/15/57/salmon-518032_960_720.jpg',
-                      ),
-                      fit: BoxFit.cover // 填满
-                  ),
-                  borderRadius: BorderRadius.circular((20.0)),
-                ),
-              ),
-            ),
-            onTap: () {},
-          ),
-          InkWell(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.white38, width: 0.5),
-                  // 边色与边宽度
-                  image: DecorationImage(
-                      image: NetworkImage(
-                        'https://cdn.pixabay.com/photo/2017/12/09/08/18/pizza-3007395_960_720.jpg',
-                      ),
-                      fit: BoxFit.cover // 填满
-                  ),
-                  borderRadius: BorderRadius.circular((20.0)),
-                ),
-              ),
-            ),
-            onTap: () {},
-          ),
-          InkWell(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.white38, width: 0.5),
-                  // 边色与边宽度
-                  image: DecorationImage(
-                      image: NetworkImage(
-                        'https://cdn.pixabay.com/photo/2016/02/05/15/34/pasta-1181189_960_720.jpg',
-                      ),
-                      fit: BoxFit.cover // 填满
-                  ),
-                  borderRadius: BorderRadius.circular((20.0)),
-                ),
-              ),
-            ),
-            onTap: () {},
-          ),
-          InkWell(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.white38, width: 0.5),
-                  // 边色与边宽度
-                  image: DecorationImage(
-                      image: NetworkImage(
-                        'https://cdn.pixabay.com/photo/2018/05/01/18/21/eclair-3366430_960_720.jpg',
-                      ),
-                      fit: BoxFit.cover // 填满
-                  ),
-                  borderRadius: BorderRadius.circular((20.0)),
-                ),
-              ),
-            ),
-            onTap: () {},
-          ),
-        ]);
+          );
+        });
   }
 }
