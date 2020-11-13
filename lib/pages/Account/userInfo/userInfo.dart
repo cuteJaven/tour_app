@@ -1,14 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:helloFlutter/services/auth.dart';
 
 class UserInfoPage extends StatelessWidget {
+
+  final AuthService _auth = AuthService();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text('My Account',
-          style:
-          TextStyle(color: Colors.lightBlueAccent, fontWeight: FontWeight.w600),),
+        title: Text(
+          'My Account',
+          style: TextStyle(
+              color: Colors.lightBlueAccent, fontWeight: FontWeight.w600),
+        ),
+        actions: [
+          FlatButton.icon(
+            icon: Icon(Icons.exit_to_app),
+            label: Text('logout'),
+            onPressed: () async{
+              await _auth.signOut();
+            },
+          )
+        ],
       ),
       body: Body(),
     );

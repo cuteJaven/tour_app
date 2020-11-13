@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart' as auth;
+import 'package:flutter/material.dart';
 import 'package:helloFlutter/models/user.dart';
 
 class AuthService {
@@ -28,9 +29,18 @@ class AuthService {
       return null;
     }
   }
+
 //sign in email & password
 
 //register with email & password
 
-//sign out
+  //sign out
+  Future signOut() async {
+    try {
+      return await _auth.signOut();
+    } catch (e) {
+      print(e.toString());
+      return null;
+    }
+  }
 }

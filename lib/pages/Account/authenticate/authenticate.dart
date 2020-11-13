@@ -21,24 +21,28 @@ class Body extends StatefulWidget {
 class _BodyState extends State<Body> {
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: [
-        RaisedButton(
-          child: Text('转跳到登录页面'),
-          onPressed: () {
-            Navigator.pushNamed(context, '/login');
-          },
-        ),
-        SizedBox(
-          height: 20,
-        ),
-        RaisedButton(
-          child: Text('转跳到注册页面'),
-          onPressed: () {
-            Navigator.pushNamed(context, '/register1');
-          },
-        ),
-      ],
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 40),
+      child: ListView(
+        children: [
+          SizedBox(height: 40.0),
+          RaisedButton(
+            child: Text('Switch to the login page'),
+            onPressed: () {
+              Navigator.pushNamed(context, '/login');
+            },
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          RaisedButton(
+            child: Text('Switch to the signup page'),
+            onPressed: () {
+              Navigator.pushNamed(context, '/register1');
+            },
+          ),
+        ],
+      ),
     );
   }
 }

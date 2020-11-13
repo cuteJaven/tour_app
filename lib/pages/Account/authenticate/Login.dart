@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:helloFlutter/services/auth.dart';
+import '../../../SnackBar1.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -8,6 +9,10 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final AuthService _auth = AuthService();
+
+//text field state
+  String email = '';
+  String password = '';
 
   @override
   Widget build(BuildContext context) {
@@ -28,10 +33,6 @@ class _LoginPageState extends State<LoginPage> {
           padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
           child: Column(
             children: [
-              Text('请输入账号密码'),
-              SizedBox(
-                height: 40,
-              ),
               RaisedButton(
                 child: Text('Log in anon'),
                 onPressed: () async {
@@ -42,26 +43,55 @@ class _LoginPageState extends State<LoginPage> {
                   } else {
                     print('logged in');
                     print(result.uid);
-                    final snackBar = SnackBar(
-                      content: Text('Succeed!'),
-                      action: SnackBarAction(
-                        label: '^o^',
-                        onPressed: () {
-                          // Some code to undo the change.
-                        },
-                      ),
-                    );
-                    _scaffoldKey.currentState.showSnackBar(snackBar);
-                    //Scaffold.of(context).showSnackBar(snackBar);
-                    Future.delayed(Duration(seconds: 1), () {
-                      Navigator.of(context).pop();
-                      print('延时1s执行');
-                    });
+                    snackBar1(context, _scaffoldKey);
                   }
                 },
+              ),
+              Form(
+                child: Column(
+                  children: [
+                    SizedBox(height: 20.0),
+                    TextFormField(
+                      onChanged: (val) {
+                          email = val;
+                      },
+                    ),
+                    SizedBox(height: 20.0),
+                    TextFormField(
+                      obscureText: true,
+                      onChanged: (val) {
+                          password = val;
+                      },
+                    ),
+                    SizedBox(height: 20.0),
+                    RaisedButton(
+                      color: Colors.lightBlueAccent,
+                      child: Container(
+                        height: 40.0,
+                        width: double.infinity,
+                        alignment: Alignment.center,
+                        child: Text(
+                          'Log in using email',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20.0,
+                          ),
+                        ),
+                      ),
+                      onPressed: () async {
+                        print(email);
+                        print(password);
+
+                        snackBar1(context, _scaffoldKey);
+                      },
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
         ));
   }
 }
+
+
