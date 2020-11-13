@@ -9,10 +9,12 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final AuthService _auth = AuthService();
+  final GlobalKey<FormState> _formKey = GlobalKey();
 
 //text field state
   String email = '';
   String password = '';
+  String error = '';
 
   @override
   Widget build(BuildContext context) {

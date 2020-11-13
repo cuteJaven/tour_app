@@ -8,10 +8,55 @@ class RegisterFirstPage extends StatefulWidget {
 
 class _RegisterFirstPageState extends State<RegisterFirstPage> {
   final AuthService _auth = AuthService();
+  final GlobalKey<FormState> _formKey = GlobalKey();
 
   //text field state
   String email = '';
   String password = '';
+  String error = '';
+  bool _loading = false;
+
+  Future<Null> _register() async {
+    setState(() {
+      _loading = !_loading;
+    });
+    if (_formKey.currentState.validate()) {
+      dynamic result =
+          await _auth.registerWithEmailAndPassword(email, password);
+      if (result == null) {
+        setState(() {
+          _loading = !_loading;
+          error = 'please supply a valid email';
+        });
+      } else {
+        setState(() {
+          _loading = !_loading;
+          //Navigator.pushNamed(context, '/register2');
+          Navigator.of(context).pushReplacementNamed('/register2');
+        });
+      }
+    }
+  }
+
+  Widget _childLayout() {
+    if (_loading) {
+      return Image(
+        image: AssetImage('images/loading1.gif'),
+      );
+    } else {
+      return Container(
+        alignment: Alignment.center,
+        width: 60.0,
+        padding: EdgeInsets.symmetric(vertical: 8),
+        decoration: BoxDecoration(
+            color: Colors.blue, borderRadius: BorderRadius.circular(30)),
+        child: FlatButton(
+          child: Text('Next'),
+          onPressed: () => _register(),
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +73,7 @@ class _RegisterFirstPageState extends State<RegisterFirstPage> {
       body: Padding(
         padding: const EdgeInsets.all(40.0),
         child: Form(
+          key: _formKey,
           child: Column(
             children: [
               SizedBox(
@@ -49,6 +95,8 @@ class _RegisterFirstPageState extends State<RegisterFirstPage> {
                     ),
                     enabledBorder: UnderlineInputBorder(
                         borderSide: BorderSide(color: Colors.black))),
+                //若邮箱为空则提示错误(formKey)
+                validator: (val) => val.isEmpty ? 'Enter an email' : null,
                 onChanged: (val) {
                   email = val;
                 },
@@ -66,26 +114,19 @@ class _RegisterFirstPageState extends State<RegisterFirstPage> {
                     enabledBorder: UnderlineInputBorder(
                         borderSide: BorderSide(color: Colors.black))),
                 obscureText: true,
+                //若密码小于6位则提示错误(formKey)
+                validator: (val) => val.length < 6
+                    ? 'Password must be at least 6 characters long'
+                    : null,
                 onChanged: (val) {
                   password = val;
                 },
               ),
               SizedBox(height: 20.0),
-              Container(
-                alignment: Alignment.center,
-                width: 60.0,
-                padding: EdgeInsets.symmetric(vertical: 8),
-                decoration: BoxDecoration(
-                    color: Colors.blue,
-                    borderRadius: BorderRadius.circular(30)),
-                child: FlatButton(
-                  child: Text('Next'),
-                  onPressed: () {
-                    //Navigator.pushNamed(context, '/register2');
-                    Navigator.of(context).pushReplacementNamed('/register2');
-                  },
-                ),
-              ),
+
+              //这是自定义的可切换widget
+              _childLayout(),
+
               SizedBox(height: 16),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -108,6 +149,11 @@ class _RegisterFirstPageState extends State<RegisterFirstPage> {
                   )
                 ],
               ),
+              SizedBox(height: 16),
+              Text(
+                error,
+                style: TextStyle(color: Colors.red, fontSize: 14.0),
+              )
             ],
           ),
         ),
