@@ -12,9 +12,9 @@ Function snackBar1(context, scaffoldKey) {
   );
   _scaffoldKey.currentState.showSnackBar(snackBar);
   //Scaffold.of(context).showSnackBar(snackBar);
-  Future.delayed(Duration(seconds: 1), () {
+  Future.delayed(Duration(milliseconds: 1500), () {
     Navigator.of(context).pop();
-    print('延时1s执行');
+    print('延时1.5s执行');
   });
   return null;
 }
