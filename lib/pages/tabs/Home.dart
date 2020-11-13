@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:helloFlutter/pages/Home/Food/Food.dart';
-import 'package:helloFlutter/pages/Home/GuestHouses/GuestHouse.dart';
-import 'package:helloFlutter/pages/Home/Scenery/Scenery.dart';
+import 'package:tour_app/pages/Home/Food/Food.dart';
+import 'package:tour_app/pages/Home/GuestHouses/GuestHouse.dart';
+import 'package:tour_app/pages/Home/Scenery/Scenery.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -98,7 +98,7 @@ class _HomePageState extends State<HomePage> {
             leading: CircleAvatar(
               child: Icon(Icons.ac_unit),
             ),
-            title: Text('风景'),
+            title: Text('Scenery'),
             onTap: () {
               setState(() {
                 index = 0;
@@ -111,7 +111,7 @@ class _HomePageState extends State<HomePage> {
             leading: CircleAvatar(
               child: Icon(Icons.home),
             ),
-            title: Text('民宿'),
+            title: Text('GuestHouse'),
             onTap: () {
               setState(() {
                 index = 1;
@@ -124,7 +124,7 @@ class _HomePageState extends State<HomePage> {
             leading: CircleAvatar(
               child: Icon(Icons.fastfood),
             ),
-            title: Text('美食'),
+            title: Text('Food'),
             onTap: () {
               setState(() {
                 index = 2;

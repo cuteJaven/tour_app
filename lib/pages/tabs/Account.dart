@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:helloFlutter/pages/Account/authenticate/authenticate.dart';
-import 'package:helloFlutter/models/user.dart';
-import 'package:helloFlutter/pages/Account/userInfo/userInfo.dart';
+import 'package:tour_app/pages/Account/authenticate/authenticate.dart';
+import 'package:tour_app/models/user.dart';
+import 'package:tour_app/pages/Account/userInfo/userInfo.dart';
 import 'package:provider/provider.dart';
 
 class AccountPage extends StatelessWidget {

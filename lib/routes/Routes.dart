@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:helloFlutter/pages/Account/authenticate/Login.dart';
-import 'package:helloFlutter/pages/Account/authenticate/RegisterFirst.dart';
-import 'package:helloFlutter/pages/Account/authenticate/RegisterSecond.dart';
-import 'package:helloFlutter/pages/Booking/Form.dart';
-import 'package:helloFlutter/pages/Home/Food/Food.dart';
-import 'package:helloFlutter/pages/Home/GuestHouses/GuestHouse.dart';
-import 'package:helloFlutter/pages/Home/Scenery/Scenery.dart';
-import 'package:helloFlutter/pages/Home/Scenery/scenery1.dart';
-import 'package:helloFlutter/pages/Home/Scenery/scenery2.dart';
-import 'package:helloFlutter/pages/Tabs.dart';
-import 'package:helloFlutter/pages/tabs/Home.dart';
-import 'package:helloFlutter/services/auth.dart';
+import 'package:tour_app/pages/Account/authenticate/Login.dart';
+import 'package:tour_app/pages/Account/authenticate/RegisterFirst.dart';
+import 'package:tour_app/pages/Account/authenticate/RegisterSecond.dart';
+import 'package:tour_app/pages/Booking/Form.dart';
+import 'package:tour_app/pages/Home/Food/Food.dart';
+import 'package:tour_app/pages/Home/GuestHouses/GuestHouse.dart';
+import 'package:tour_app/pages/Home/Scenery/Scenery.dart';
+import 'package:tour_app/pages/Home/Scenery/scenery1.dart';
+import 'package:tour_app/pages/Home/Scenery/scenery2.dart';
+import 'package:tour_app/pages/Tabs.dart';
+import 'package:tour_app/pages/tabs/Home.dart';
+import 'package:tour_app/services/auth.dart';
 import 'package:provider/provider.dart';
-import 'package:helloFlutter/models/user.dart';
+import 'package:tour_app/models/user.dart';
 
 
 final routes = {

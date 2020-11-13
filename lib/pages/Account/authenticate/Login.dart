@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:helloFlutter/services/auth.dart';
+import 'package:tour_app/services/auth.dart';
 import '../../../SnackBar1.dart';
 
 class LoginPage extends StatefulWidget {

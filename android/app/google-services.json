@@ -8,9 +8,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:669779471400:android:512c55d44a46d008f0991d",
+        "mobilesdk_app_id": "1:669779471400:android:16291f3e3a66afd6f0991d",
         "android_client_info": {
-          "package_name": "com.javenchen.helloFlutter"
+          "package_name": "com.javenchen.tour_app"
         }
       },
       "oauth_client": [

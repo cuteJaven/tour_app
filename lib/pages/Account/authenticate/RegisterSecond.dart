@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:helloFlutter/SnackBar1.dart';
+import 'package:tour_app/SnackBar1.dart';
 
 class RegisterSecondPage extends StatelessWidget {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
