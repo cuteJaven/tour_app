@@ -15,6 +15,58 @@ class _LoginPageState extends State<LoginPage> {
   String email = '';
   String password = '';
   String error = '';
+  bool _loading = false;
+
+  Future<Null> _register() async {
+    setState(() {
+      _loading = !_loading;
+    });
+    if (_formKey.currentState.validate()) {
+      dynamic result = await _auth.logIndWithEmailAndPassword(email, password);
+      if (result == null) {
+        setState(() {
+          _loading = !_loading;
+          error = 'could not log in with those credentials';
+        });
+      } else {
+        setState(() {
+          _loading = !_loading;
+        });
+        //snackBar1(context, _scaffoldKey);
+        //Navigator.pushNamed(context, '/register2');
+        Navigator.pop(context);
+      }
+    }
+  }
+
+  Widget _childLayout() {
+    if (_loading) {
+      return Image(
+        image: AssetImage('images/loading1.gif'),
+      );
+    } else {
+      return Container(
+        alignment: Alignment.center,
+        width: MediaQuery.of(context).size.width,
+        padding: EdgeInsets.symmetric(vertical: 20),
+        decoration: BoxDecoration(
+            color: Colors.lightBlueAccent,
+            borderRadius: BorderRadius.circular(30)),
+        child: FlatButton(
+          child: Text(
+            'Log in using email',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 25.0,
+            ),
+          ),
+          onPressed: () async {
+            return _register();
+          },
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,6 +104,7 @@ class _LoginPageState extends State<LoginPage> {
           child: Column(
             children: [
               Form(
+                key: _formKey,
                 child: Column(
                   children: [
                     SizedBox(height: 20.0),
@@ -66,6 +119,8 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                           enabledBorder: UnderlineInputBorder(
                               borderSide: BorderSide(color: Colors.black))),
+                      //若邮箱为空则提示错误(formKey)
+                      validator: (val) => val.isEmpty ? 'Enter an email' : null,
                       onChanged: (val) {
                         email = val;
                       },
@@ -82,6 +137,11 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                           enabledBorder: UnderlineInputBorder(
                               borderSide: BorderSide(color: Colors.black))),
+
+                      //若密码小于6位则提示错误(formKey)
+                      validator: (val) => val.length < 6
+                          ? 'Password must be at least 6 characters long'
+                          : null,
                       obscureText: true,
                       onChanged: (val) {
                         password = val;
@@ -98,29 +158,10 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                         )),
                     SizedBox(height: 20.0),
-                    Container(
-                      alignment: Alignment.center,
-                      width: MediaQuery.of(context).size.width,
-                      padding: EdgeInsets.symmetric(vertical: 20),
-                      decoration: BoxDecoration(
-                          color: Colors.lightBlueAccent,
-                          borderRadius: BorderRadius.circular(30)),
-                      child: FlatButton(
-                        child: Text(
-                          'Log in using email',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 25.0,
-                          ),
-                        ),
-                        onPressed: () async {
-                          print(email);
-                          print(password);
 
-                          snackBar1(context, _scaffoldKey);
-                        },
-                      ),
-                    ),
+                    //这是自定义的动态widget
+                    _childLayout(),
+
                     SizedBox(height: 16),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -137,12 +178,18 @@ class _LoginPageState extends State<LoginPage> {
                                 fontSize: 14,
                                 decoration: TextDecoration.underline),
                           ),
-                          onTap: (){
-                            Navigator.pushReplacementNamed(context, '/register1');
+                          onTap: () {
+                            Navigator.pushReplacementNamed(
+                                context, '/register1');
                           },
                         )
                       ],
                     ),
+                    SizedBox(height: 16),
+                    Text(
+                      error,
+                      style: TextStyle(color: Colors.red, fontSize: 14.0),
+                    )
                   ],
                 ),
               ),

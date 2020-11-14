@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:tour_app/services/auth.dart';
 
 class UserInfoPage extends StatelessWidget {
-
   final AuthService _auth = AuthService();
 
   @override
@@ -19,7 +18,7 @@ class UserInfoPage extends StatelessWidget {
           FlatButton.icon(
             icon: Icon(Icons.exit_to_app),
             label: Text('logout'),
-            onPressed: () async{
+            onPressed: () async {
               await _auth.signOut();
             },
           )

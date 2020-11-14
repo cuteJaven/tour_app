@@ -124,7 +124,7 @@ class _RegisterFirstPageState extends State<RegisterFirstPage> {
               ),
               SizedBox(height: 20.0),
 
-              //这是自定义的可切换widget
+              //这是自定义的动态widget
               _childLayout(),
 
               SizedBox(height: 16),

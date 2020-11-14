@@ -22,25 +22,32 @@ class _FoodPageState extends State<FoodPage> {
     Http.get('https://reach-bf00b.firebaseio.com/PostedPic/Food.json')
         .then((resp) {
       result = resp.body;
-      setState(() {
-        data = json.decode(result);
-      });
+      if(mounted) {
+        setState(() {
+          data = json.decode(result);
+        });
+      }
     }).catchError((e) {
-      print('error!');
+      print(e.toString());
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return data.length == 0
-        ? Text(
-            '请稍后',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-                color: Colors.lightBlueAccent,
-                fontSize: 40,
-                fontWeight: FontWeight.w600),
-          )
+        ? Column(
+          children: [
+            Text(
+                'Loading...',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    color: Colors.lightBlueAccent,
+                    fontSize: 40,
+                    fontWeight: FontWeight.w600),
+              ),
+            Image(image: AssetImage('images/loading2.gif'))
+          ],
+        )
         : buildGridView();
   }
 
