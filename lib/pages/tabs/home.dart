@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:tour_app/pages/Home/Food/Food.dart';
-import 'package:tour_app/pages/Home/GuestHouses/GuestHouse.dart';
-import 'package:tour_app/pages/Home/Scenery/Scenery.dart';
+import 'package:tour_app/pages/home/food/food.dart';
+import 'package:tour_app/pages/home/guest_houses/guest_house.dart';
+import 'package:tour_app/pages/home/scenery/scenery.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -10,7 +10,6 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int index = 0;
-
 
   @override
   Widget build(BuildContext context) {
@@ -100,10 +99,12 @@ class _HomePageState extends State<HomePage> {
             ),
             title: Text('Scenery'),
             onTap: () {
-              setState(() {
-                index = 0;
-                Navigator.pop(context);
-              });
+              if (mounted) {
+                setState(() {
+                  index = 0;
+                  Navigator.pop(context);
+                });
+              }
             },
           ),
           Divider(),
@@ -113,10 +114,12 @@ class _HomePageState extends State<HomePage> {
             ),
             title: Text('GuestHouse'),
             onTap: () {
-              setState(() {
-                index = 1;
-                Navigator.pop(context);
-              });
+              if (mounted) {
+                setState(() {
+                  index = 1;
+                  Navigator.pop(context);
+                });
+              }
             },
           ),
           Divider(),
@@ -126,10 +129,12 @@ class _HomePageState extends State<HomePage> {
             ),
             title: Text('Food'),
             onTap: () {
-              setState(() {
-                index = 2;
-                Navigator.pop(context);
-              });
+              if (mounted) {
+                setState(() {
+                  index = 2;
+                  Navigator.pop(context);
+                });
+              }
             },
           ),
         ],

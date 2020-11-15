@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:tour_app/services/auth.dart';
-import '../../../SnackBar1.dart';
+import '../../../shared/snack_bar1.dart';
+import 'package:tour_app/shared/constants.dart';
+
 
 class LoginPage extends StatefulWidget {
   @override
@@ -18,20 +20,26 @@ class _LoginPageState extends State<LoginPage> {
   bool _loading = false;
 
   Future<Null> _register() async {
-    setState(() {
-      _loading = !_loading;
-    });
+    if(mounted) {
+      setState(() {
+        _loading = !_loading;
+      });
+    }
     if (_formKey.currentState.validate()) {
       dynamic result = await _auth.logIndWithEmailAndPassword(email, password);
       if (result == null) {
-        setState(() {
-          _loading = !_loading;
-          error = 'could not log in with those credentials';
-        });
+        if(mounted) {
+          setState(() {
+            _loading = !_loading;
+            error = 'could not log in with those credentials';
+          });
+        }
       } else {
-        setState(() {
-          _loading = !_loading;
-        });
+        if(mounted) {
+          setState(() {
+            _loading = !_loading;
+          });
+        }
         //snackBar1(context, _scaffoldKey);
         //Navigator.pushNamed(context, '/register2');
         Navigator.pop(context);
@@ -48,10 +56,10 @@ class _LoginPageState extends State<LoginPage> {
       return Container(
         alignment: Alignment.center,
         width: MediaQuery.of(context).size.width,
-        padding: EdgeInsets.symmetric(vertical: 20),
+        padding: EdgeInsets.symmetric(vertical: 10),
         decoration: BoxDecoration(
             color: Colors.lightBlueAccent,
-            borderRadius: BorderRadius.circular(30)),
+            borderRadius: BorderRadius.circular(40)),
         child: FlatButton(
           child: Text(
             'Log in using email',
@@ -86,6 +94,11 @@ class _LoginPageState extends State<LoginPage> {
             FlatButton(
               child: Text('Log in anon'),
               onPressed: () async {
+                //if(mounted) {
+                  setState(() {
+                    _loading = true;
+                  });
+                //}
                 //因为有可能返回User或者null，所以是dynamic
                 dynamic result = await _auth.signInAnon();
                 if (result == null) {
@@ -109,16 +122,7 @@ class _LoginPageState extends State<LoginPage> {
                   children: [
                     SizedBox(height: 20.0),
                     TextFormField(
-                      decoration: InputDecoration(
-                          hintText: "Email",
-                          hintStyle: TextStyle(
-                            color: Colors.grey,
-                          ),
-                          focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: Colors.black),
-                          ),
-                          enabledBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(color: Colors.black))),
+                      decoration: textInputDecoration.copyWith(hintText: 'Email'),
                       //若邮箱为空则提示错误(formKey)
                       validator: (val) => val.isEmpty ? 'Enter an email' : null,
                       onChanged: (val) {
@@ -127,16 +131,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     SizedBox(height: 20.0),
                     TextFormField(
-                      decoration: InputDecoration(
-                          hintText: "Password",
-                          hintStyle: TextStyle(
-                            color: Colors.grey,
-                          ),
-                          focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: Colors.black),
-                          ),
-                          enabledBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(color: Colors.black))),
+                      decoration: textInputDecoration.copyWith(hintText: 'Password'),
 
                       //若密码小于6位则提示错误(formKey)
                       validator: (val) => val.length < 6

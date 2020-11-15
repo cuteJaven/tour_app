@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:tour_app/SnackBar1.dart';
+import 'package:tour_app/shared/snack_bar1.dart';
 import 'package:tour_app/services/auth.dart';
+import 'package:tour_app/shared/constants.dart';
 
 class RegisterSecondPage extends StatelessWidget {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
@@ -54,16 +55,7 @@ class _BodyState extends State<Body> {
               height: 40,
             ),
             TextFormField(
-              decoration: InputDecoration(
-                  hintText: "Code",
-                  hintStyle: TextStyle(
-                    color: Colors.grey,
-                  ),
-                  focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Colors.black),
-                  ),
-                  enabledBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.black))),
+              decoration:textInputDecoration.copyWith(hintText: 'Code'),
               onChanged: (val) {
                 code = val;
               },
@@ -71,8 +63,8 @@ class _BodyState extends State<Body> {
             SizedBox(height: 20.0),
             Container(
               alignment: Alignment.center,
-              width: 60.0,
-              padding: EdgeInsets.symmetric(vertical: 8),
+              width: 70.0,
+              padding: EdgeInsets.symmetric(vertical: 3),
               decoration: BoxDecoration(
                   color: Colors.blue, borderRadius: BorderRadius.circular(30)),
               child: FlatButton(

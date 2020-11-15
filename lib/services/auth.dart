@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:tour_app/models/user.dart';
+import 'package:tour_app/services/database.dart';
 
 class AuthService {
   final auth.FirebaseAuth _auth = auth.FirebaseAuth.instance;
@@ -48,6 +49,16 @@ class AuthService {
       auth.UserCredential result = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
       auth.User user = result.user;
+
+      // create a new document for the user with the uid
+      await DatabaseService(uid: user.uid).updateUserData(
+          'new tour member',
+          'empty',
+          true,
+          'https://tr-osdcp.qunarzz.com/tr-osd-tr-space/img/3390287e7516e496018999e9041cda89.jpg_r_680x466x95_3b7c468c.jpg',
+          'https://i.pinimg.com/564x/81/fe/96/81fe96c42cd93466c27aa8b988bd0ff5.jpg',
+          0,
+          0);
       return _userFromFirebaseUser(user);
     } catch (e) {
       print(e.toString());

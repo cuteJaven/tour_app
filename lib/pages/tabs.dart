@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'tabs/Booking.dart';
-import 'tabs/Home.dart';
-import 'tabs/Chats.dart';
-import 'tabs/Account.dart';
+import 'tabs/booking.dart';
+import 'tabs/home.dart';
+import 'tabs/chats.dart';
+import 'tabs/account.dart';
 
 class Tabs extends StatefulWidget {
   final int index;
@@ -32,9 +32,11 @@ class _TabsState extends State<Tabs> {
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
         onTap: (x) {
-          setState(() {
-            this._currentIndex = x;
-          });
+          if (mounted) {
+            setState(() {
+              this._currentIndex = x;
+            });
+          }
         },
         iconSize: 45.0,
         unselectedItemColor: Colors.black38,
@@ -60,9 +62,9 @@ class _TabsState extends State<Tabs> {
         ],
       ),
       floatingActionButton: Container(
-        height: 70,
-        width: 70,
-        padding: EdgeInsets.all(8),
+        height: 58,
+        width: 58,
+        padding: EdgeInsets.all(5),
         margin: EdgeInsets.only(top: 8),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(40), color: Colors.white),
@@ -73,7 +75,10 @@ class _TabsState extends State<Tabs> {
             //以后用来发新的帖子
             print('发帖！');
           },
-          child: Icon(Icons.add,color: Colors.lightBlueAccent,),
+          child: Icon(
+            Icons.add,
+            color: Colors.lightBlueAccent,
+          ),
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,

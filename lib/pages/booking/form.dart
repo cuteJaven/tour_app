@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class FormPage extends StatelessWidget {
-  String title;
+  final String title;
   FormPage({this.title='Form Page'});
   @override
   Widget build(BuildContext context) {

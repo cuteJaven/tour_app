@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as Http;
+import 'package:tour_app/shared/loading_widget.dart';
 
 class GuestHousePage extends StatefulWidget {
   @override
@@ -35,19 +36,7 @@ class _GuestHousePageState extends State<GuestHousePage> {
   @override
   Widget build(BuildContext context) {
     return data.length == 0
-        ? Column(
-          children: [
-            Text(
-                'Loading...',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    color: Colors.lightBlueAccent,
-                    fontSize: 40,
-                    fontWeight: FontWeight.w600),
-              ),
-            Image(image: AssetImage('images/loading2.gif'))
-          ],
-        )
+        ? loadingWidget()
         : buildGridView();
   }
 
