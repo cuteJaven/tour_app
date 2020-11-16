@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:tour_app/models/user.dart';
 import 'package:tour_app/models/userinfo.dart';
 
 class DatabaseService {
@@ -10,14 +11,14 @@ class DatabaseService {
   final CollectionReference userInfoCollection =
       FirebaseFirestore.instance.collection('userInfo');
 
-  Future updateUserData(
+  Future updateUserData({
     String name,
     String description,
     bool sex,
     String backUrl,
     String avatar,
     int followers,
-    int following,
+    int following,}
   ) async {
     return await userInfoCollection.doc(uid).set({
       //女性为true，男性为false
@@ -47,8 +48,29 @@ class DatabaseService {
     }).toList();
   }
 
+  // userData from snapshot
+  UserData _userDataFromSnapshot(DocumentSnapshot snapshot) {
+    return UserData(
+      uid: uid ?? '',
+      name: snapshot.data()['name'] ?? '',
+      description: snapshot.data()['description'] ?? '',
+      sex: snapshot.data()['sex'] ?? true,
+      backUrl: snapshot.data()['backUrl'] ?? '',
+      avatar: snapshot.data()['avatar'] ?? '',
+      followers: snapshot.data()['followers'] ?? 0,
+      following: snapshot.data()['following'] ?? 0,
+    );
+  }
+
   // get userInfo stream
-  Stream<List<UserInfo>> get userInfo {
-    return userInfoCollection.snapshots().map((_userInfoListFromSnapshot));
+  Stream<List<UserInfo>> get userInfoStream {
+    return userInfoCollection.snapshots().map(_userInfoListFromSnapshot);
+    //这里简写了，参考auth.dart
+  }
+
+  //get user doc stream
+  Stream<UserData> get userDataStream {
+    return userInfoCollection.doc(uid).snapshots().map(_userDataFromSnapshot);
+    //这里简写了，参考auth.dart
   }
 }

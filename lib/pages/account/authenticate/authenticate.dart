@@ -6,7 +6,7 @@ class AuthenticatePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text('My Account',
+        title: Text('Please log in',
           style:
           TextStyle(color: Colors.lightBlueAccent, fontWeight: FontWeight.w600),),
       ),

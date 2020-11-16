@@ -16,6 +16,7 @@ class AuthService {
     return _auth
         .authStateChanges()
         .map((auth.User user) => _userFromFirebaseUser(user));
+    //可以简写成.map(_userFromFirebaseUser)
   }
 
   //sign in anonymous
@@ -52,13 +53,15 @@ class AuthService {
 
       // create a new document for the user with the uid
       await DatabaseService(uid: user.uid).updateUserData(
-          'new tour member',
-          'empty',
-          true,
-          'https://tr-osdcp.qunarzz.com/tr-osd-tr-space/img/3390287e7516e496018999e9041cda89.jpg_r_680x466x95_3b7c468c.jpg',
-          'https://i.pinimg.com/564x/81/fe/96/81fe96c42cd93466c27aa8b988bd0ff5.jpg',
-          0,
-          0);
+          name: 'new tour member',
+          description: 'empty',
+          sex: true,
+          backUrl:
+              'https://tr-osdcp.qunarzz.com/tr-osd-tr-space/img/3390287e7516e496018999e9041cda89.jpg_r_680x466x95_3b7c468c.jpg',
+          avatar:
+              'https://i.pinimg.com/564x/81/fe/96/81fe96c42cd93466c27aa8b988bd0ff5.jpg',
+          followers: 0,
+          following: 0);
       return _userFromFirebaseUser(user);
     } catch (e) {
       print(e.toString());

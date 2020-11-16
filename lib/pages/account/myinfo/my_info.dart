@@ -1,28 +1,42 @@
-import 'package:tour_app/models/userinfo.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tour_app/models/user.dart';
+
 
 class MyInfo extends StatefulWidget {
+
   @override
   _MyInfoState createState() => _MyInfoState();
+
 }
 
 class _MyInfoState extends State<MyInfo> {
   @override
   Widget build(BuildContext context) {
-    final userInfo = Provider.of<List<UserInfo>>(context);
+    final userData = Provider.of<UserData>(context);
 
-    return userInfo == null
+    return userData == null
         ? Container()
         : ListView(
             children: [
+              Container(
+                width: double.infinity,
+                child: Image.network(userData.backUrl),
+              ),
               ListTile(
                 leading: CircleAvatar(
                   radius: 25.0,
-                  backgroundImage: NetworkImage(userInfo[0].avatar),
+                  backgroundImage:
+                      NetworkImage(userData.avatar),
                 ),
-                title: Text(userInfo[0].name),
-                subtitle: Text(userInfo[0].description),
+                title: Text(userData.name),
+                subtitle: Text(userData.description),
+                trailing: IconButton(
+                  icon: Icon(Icons.settings),
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/settings');
+                  },
+                ),
               )
             ],
           );

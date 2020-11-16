@@ -1,42 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:tour_app/pages/account/authenticate/authenticate.dart';
+import 'package:tour_app/pages/booking/booking_page.dart';
+import 'package:tour_app/models/user.dart';
 
-class BookingPage extends StatelessWidget {
+class BookingWrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text('Booking Now！',
-          style:
-          TextStyle(color: Colors.lightBlueAccent, fontWeight: FontWeight.w600),),
-      ),
+    final user = Provider.of<User>(context);
 
-      body: Body(),
-    );
-  }
-}
-
-class Body extends StatefulWidget {
-  @override
-  _BodyState createState() => _BodyState();
-}
-
-class _BodyState extends State<Body> {
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        RaisedButton(
-          child: Text('Switch to FormPage'),
-          onPressed: () {
-            Navigator.pushNamed(context, '/form');
-          },
-          color: Theme.of(context).accentColor,
-          textTheme: ButtonTextTheme.primary,
-        ),
-      ],
-    );
+    //return either BookingPage or Authenticate widget
+    if (user == null) {
+      return AuthenticatePage();
+    } else {
+      return BookingPage();
+    }
   }
 }

@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:tour_app/models/userinfo.dart';
 import 'package:tour_app/services/auth.dart';
 import 'my_info.dart';
 import 'package:tour_app/services/database.dart';
 import 'package:provider/provider.dart';
+import 'package:tour_app/models/user.dart';
 
-class UserInfoPage extends StatelessWidget {
+class MyInfoPage extends StatelessWidget {
   final AuthService _auth = AuthService();
 
   @override
   Widget build(BuildContext context) {
-    return StreamProvider<List<UserInfo>>.value(
-      value: DatabaseService().userInfo,
+    final user = Provider.of<User>(context);
+
+    return StreamProvider<UserData>.value(
+      value: DatabaseService(uid: user.uid).userDataStream,
       child: Scaffold(
         appBar: AppBar(
           centerTitle: true,
@@ -27,7 +29,8 @@ class UserInfoPage extends StatelessWidget {
               onPressed: () async {
                 await _auth.signOut();
               },
-            )
+            ),
+
           ],
         ),
         body: MyInfo(),

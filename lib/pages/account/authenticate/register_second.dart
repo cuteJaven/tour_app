@@ -19,7 +19,7 @@ class RegisterSecondPage extends StatelessWidget {
           ),
         ),
       ),
-      body: Body(_scaffoldKey),
+      body: SingleChildScrollView(child: Body(_scaffoldKey)),
     );
   }
 }

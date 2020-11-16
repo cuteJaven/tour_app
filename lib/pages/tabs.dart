@@ -19,10 +19,10 @@ class _TabsState extends State<Tabs> {
   _TabsState(this._currentIndex);
 
   List _pageList = [
-    HomePage(),
-    BookingPage(),
-    ChatsPage(),
-    AccountPage(),
+    HomeWrapper(),
+    BookingWrapper(),
+    ChatsWrapper(),
+    AccountWrapper(),
   ];
 
   @override
@@ -69,8 +69,7 @@ class _TabsState extends State<Tabs> {
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(40), color: Colors.white),
         child: FloatingActionButton(
-          backgroundColor: Colors.white38,
-          focusColor: Colors.lightBlueAccent,
+          backgroundColor: Colors.white70,
           onPressed: () {
             //以后用来发新的帖子
             print('发帖！');

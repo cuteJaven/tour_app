@@ -98,55 +98,57 @@ class _RegisterFirstPageState extends State<RegisterFirstPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Register',
-          style: TextStyle(
-            color: Colors.lightBlueAccent,
-            fontWeight: FontWeight.w600,
+    return SingleChildScrollView(
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            'Register',
+            style: TextStyle(
+              color: Colors.lightBlueAccent,
+              fontWeight: FontWeight.w600,
+            ),
           ),
         ),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(40.0),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            children: [
-              SizedBox(
-                height: 40,
-              ),
-              Text(
-                  'Here is the first step of registration, please enter your email'),
-              SizedBox(
-                height: 40,
-              ),
-              TextFormField(
-                decoration: textInputDecoration.copyWith(hintText: 'Email'),
-                //若邮箱为空则提示错误(formKey)
-                validator: (val) => val.isEmpty ? 'Enter an email' : null,
-                onChanged: (val) {
-                  email = val;
-                },
-              ),
-              SizedBox(height: 20.0),
-              TextFormField(
-                decoration: textInputDecoration.copyWith(hintText: 'Password'),
-                obscureText: true,
-                //若密码小于6位则提示错误(formKey)
-                validator: (val) => val.length < 6
-                    ? 'Password must be at least 6 characters long'
-                    : null,
-                onChanged: (val) {
-                  password = val;
-                },
-              ),
-              SizedBox(height: 20.0),
+        body: Padding(
+          padding: const EdgeInsets.all(40.0),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              children: [
+                SizedBox(
+                  height: 40,
+                ),
+                Text(
+                    'Here is the first step of registration, please enter your email'),
+                SizedBox(
+                  height: 40,
+                ),
+                TextFormField(
+                  decoration: textInputDecoration.copyWith(hintText: 'Email'),
+                  //若邮箱为空则提示错误(formKey)
+                  validator: (val) => val.isEmpty ? 'Enter an email' : null,
+                  onChanged: (val) {
+                    email = val;
+                  },
+                ),
+                SizedBox(height: 20.0),
+                TextFormField(
+                  decoration: textInputDecoration.copyWith(hintText: 'Password'),
+                  obscureText: true,
+                  //若密码小于6位则提示错误(formKey)
+                  validator: (val) => val.length < 6
+                      ? 'Password must be at least 6 characters long'
+                      : null,
+                  onChanged: (val) {
+                    password = val;
+                  },
+                ),
+                SizedBox(height: 20.0),
 
-              //这是自定义的动态widget
-              _childLayout(),
-            ],
+                //这是自定义的动态widget
+                _childLayout(),
+              ],
+            ),
           ),
         ),
       ),
