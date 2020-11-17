@@ -16,24 +16,19 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
+
     final user = Provider.of<User>(context);
 
     return StreamProvider<UserData>.value(
       value: DatabaseService(uid: user.uid).userDataStream,
-      child: DefaultTabController(
-        length: 2,
-        child: MyScaffold(_scaffoldKey),
-      ),
+      child: MyScaffold(),
     );
   }
 }
 
 class MyScaffold extends StatefulWidget {
-  final GlobalKey<ScaffoldState> _scaffoldKey;
-  final int index = 0;
 
-  MyScaffold(this._scaffoldKey);
+  final int index = 0;
 
   @override
   _MyScaffoldState createState() => _MyScaffoldState(index);
@@ -41,7 +36,8 @@ class MyScaffold extends StatefulWidget {
 
 class _MyScaffoldState extends State<MyScaffold> {
   int index;
-
+  final GlobalKey<ScaffoldState> _scaffoldKey=GlobalKey();
+  List _pageList = [SceneryPage(), GuestHousePage(), FoodPage()];
   _MyScaffoldState(this.index);
 
   @override
@@ -49,10 +45,12 @@ class _MyScaffoldState extends State<MyScaffold> {
     final userData = Provider.of<UserData>(context);
 
 
-    return Scaffold(
+    return DefaultTabController(
+        length: 2,
+      child:Scaffold(
       //backgroundColor: Colors.lightBlueAccent,
       drawerScrimColor: Colors.white,
-      key: widget._scaffoldKey,
+      key: _scaffoldKey,
       appBar: AppBar(
         /// 通过可监听点击的IconButton传入widget，
         /// 并在onPressed中处理drawer开启，借助于GlobalKey
@@ -63,7 +61,7 @@ class _MyScaffoldState extends State<MyScaffold> {
                 radius: 30.0, backgroundImage: userData==null?AssetImage("images/bizhi.jpg"):NetworkImage(userData.avatar)),
           ),
           onPressed: () {
-            widget._scaffoldKey.currentState.openDrawer();
+            _scaffoldKey.currentState.openDrawer();
           },
         ),
         centerTitle: true,
@@ -96,124 +94,79 @@ class _MyScaffoldState extends State<MyScaffold> {
       ),
       body: TabBarView(
         children: [
-          Body(
-            index: index,
-          ),
-          Body2(),
-        ],
-      ),
-      drawer: buildDrawer(context,userData),
-    );
-  }
-
-  Drawer buildDrawer(BuildContext context,UserData userData) {
-    return Drawer(
-      child: Column(
-        //mainAxisAlignment: MainAxisAlignment.center,
-        //crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          UserAccountsDrawerHeader(
-            accountName: userData==null?Text(''):Text(userData.name),
-            accountEmail: userData==null?Text(''):Text(userData.description),
-            currentAccountPicture: CircleAvatar(
-              backgroundImage: userData==null?AssetImage("images/bizhi.jpg"):NetworkImage(userData.avatar),
-            ),
+          _pageList[index],
+          Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                  image: userData==null?AssetImage("images/fengjing.jpg"):NetworkImage(userData.backUrl), fit: BoxFit.cover),
+                  image: AssetImage("images/bizhi2.jpg"), fit: BoxFit.cover),
             ),
-          ),
-          ListTile(
-            leading: CircleAvatar(
-              child: Icon(Icons.ac_unit),
-            ),
-            title: Text('Scenery'),
-            onTap: () {
-              if (mounted) {
-                setState(() {
-                  index = 0;
-                  Navigator.pop(context);
-                });
-              }
-            },
-          ),
-          Divider(),
-          ListTile(
-            leading: CircleAvatar(
-              child: Icon(Icons.home),
-            ),
-            title: Text('GuestHouse'),
-            onTap: () {
-              if (mounted) {
-                setState(() {
-                  index = 1;
-                  Navigator.pop(context);
-                });
-              }
-            },
-          ),
-          Divider(),
-          ListTile(
-            leading: CircleAvatar(
-              child: Icon(Icons.fastfood),
-            ),
-            title: Text('Food'),
-            onTap: () {
-              if (mounted) {
-                setState(() {
-                  index = 2;
-                  Navigator.pop(context);
-                });
-              }
-            },
+            child: Text('Welcome',style: TextStyle(color: Colors.white),textAlign: TextAlign.center),
           ),
         ],
       ),
-    );
-  }
-}
-
-class Body extends StatefulWidget {
-  final int index;
-
-  Body({this.index = 0});
-
-  @override
-  _BodyState createState() => _BodyState(this.index);
-}
-
-class _BodyState extends State<Body> {
-  int _currentIndex;
-
-  _BodyState(this._currentIndex);
-
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-  }
-
-  List _pageList = [SceneryPage(), GuestHousePage(), FoodPage()];
-
-  @override
-  Widget build(BuildContext context) {
-    return this._pageList[this._currentIndex];
-  }
-}
-
-class Body2 extends StatefulWidget {
-  @override
-  _Body2State createState() => _Body2State();
-}
-
-class _Body2State extends State<Body2> {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        image: DecorationImage(
-            image: AssetImage("images/bizhi.jpg"), fit: BoxFit.cover),
+      drawer: Drawer(
+        child: Column(
+          //mainAxisAlignment: MainAxisAlignment.center,
+          //crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            UserAccountsDrawerHeader(
+              accountName: userData==null?Text(''):Text(userData.name),
+              accountEmail: userData==null?Text(''):Text(userData.description),
+              currentAccountPicture: CircleAvatar(
+                backgroundImage: userData==null?AssetImage("images/bizhi.jpg"):NetworkImage(userData.avatar),
+              ),
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: userData==null?AssetImage("images/fengjing.jpg"):NetworkImage(userData.backUrl), fit: BoxFit.cover),
+              ),
+            ),
+            ListTile(
+              leading: CircleAvatar(
+                child: Icon(Icons.ac_unit),
+              ),
+              title: Text('Scenery'),
+              onTap: () {
+                if (mounted) {
+                  setState(() {
+                    index = 0;
+                    Navigator.pop(context);
+                  });
+                }
+              },
+            ),
+            Divider(),
+            ListTile(
+              leading: CircleAvatar(
+                child: Icon(Icons.home),
+              ),
+              title: Text('GuestHouse'),
+              onTap: () {
+                if (mounted) {
+                  setState(() {
+                    index = 1;
+                    Navigator.pop(context);
+                  });
+                }
+              },
+            ),
+            Divider(),
+            ListTile(
+              leading: CircleAvatar(
+                child: Icon(Icons.fastfood),
+              ),
+              title: Text('Food'),
+              onTap: () {
+                if (mounted) {
+                  setState(() {
+                    index = 2;
+                    Navigator.pop(context);
+                  });
+                }
+              },
+            ),
+          ],
+        ),
       ),
-      child: Text('关注关注关注'),
-    );
+    ));
   }
 }
