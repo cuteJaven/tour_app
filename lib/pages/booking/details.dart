@@ -121,7 +121,7 @@ class _DetailsState extends State<Details> {
                                         width: 8,
                                       ),
                                       Text(
-                                        "Please authorize positioning",
+                                        "Positioning...",
                                         style: TextStyle(
                                             color: Colors.white70,
                                             fontWeight: FontWeight.w500,

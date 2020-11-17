@@ -4,6 +4,7 @@ import 'package:tour_app/models/country_model.dart';
 import 'package:tour_app/models/popular_tours_model.dart';
 import 'package:tour_app/pages/booking/details.dart';
 import 'package:flutter/material.dart';
+import 'package:tour_app/shared/loading_widget.dart';
 
 class BookingPage extends StatelessWidget {
   @override
@@ -80,7 +81,7 @@ class _BodyState extends State<Body> {
                     } else if (snapshot.hasError) {
                       return Text(snapshot.error);
                     }
-                    return Container();
+                    return loadingWidget();
                   }),
             ),
             SizedBox(
@@ -118,7 +119,7 @@ class _BodyState extends State<Body> {
                   } else if (snapshot.hasError) {
                     return Text(snapshot.error);
                   }
-                  return Container();
+                  return loadingWidget();
                 })
           ],
         ),
@@ -216,6 +217,7 @@ class PopularTours extends StatelessWidget {
                 ],
               ),
             ),
+            Spacer(),
             Container(
                 margin: EdgeInsets.only(bottom: 10, right: 8),
                 padding: EdgeInsets.symmetric(horizontal: 4, vertical: 12),

@@ -138,14 +138,14 @@ class _SettingsFormState extends State<SettingsForm> {
                               if (_formKey.currentState.validate()) {
                                 await DatabaseService(uid: user.uid)
                                     .updateUserData(
-                                        name: _currentName ?? userData.name,
-                                        description: _currentDescription ??
-                                            userData.description,
-                                        sex: _currentSex ?? userData.sex,
-                                        backUrl:
-                                            _currentBackUrl ?? userData.backUrl,
-                                        avatar:
-                                            _currentAvatar ?? userData.avatar,
+                                  name: _currentName ?? userData.name,
+                                  description: _currentDescription ??
+                                      userData.description,
+                                  sex: _currentSex ?? userData.sex,
+                                  backUrl: _currentBackUrl ?? userData.backUrl,
+                                  avatar: _currentAvatar ?? userData.avatar,
+                                  followers: userData.followers,
+                                  following: userData.following,
                                 );
                                 Navigator.pop(context);
                               }
