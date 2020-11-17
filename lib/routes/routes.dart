@@ -3,7 +3,6 @@ import 'package:tour_app/pages/account/authenticate/login.dart';
 import 'package:tour_app/pages/account/authenticate/register_first.dart';
 import 'package:tour_app/pages/account/authenticate/register_second.dart';
 import 'package:tour_app/pages/account/myinfo/settings_forms.dart';
-import 'package:tour_app/pages/booking/form.dart';
 import 'package:tour_app/pages/home/Food/food.dart';
 import 'package:tour_app/pages/home/guest_houses/guest_house.dart';
 import 'package:tour_app/pages/home/scenery/scenery.dart';
@@ -13,11 +12,9 @@ import 'package:tour_app/services/auth.dart';
 import 'package:provider/provider.dart';
 import 'package:tour_app/models/user.dart';
 
-
 final routes = {
   '/': (context) => Tabs(),
   '/home': (context) => HomeWrapper(),
-  '/form': (context) => FormPage(),
   '/product': (context) => SceneryPage(),
   '/scenery': (context) => SceneryPage(),
   '/food': (context) => FoodPage(),
@@ -26,7 +23,6 @@ final routes = {
   '/register1': (context) => RegisterFirstPage(),
   '/register2': (context) => RegisterSecondPage(),
   '/settings': (context) => SettingsForm(),
-
 };
 
 Function onGenerateRoute = (settings) {
