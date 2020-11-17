@@ -98,18 +98,18 @@ class _RegisterFirstPageState extends State<RegisterFirstPage> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text(
-            'Register',
-            style: TextStyle(
-              color: Colors.lightBlueAccent,
-              fontWeight: FontWeight.w600,
-            ),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          'Register',
+          style: TextStyle(
+            color: Colors.lightBlueAccent,
+            fontWeight: FontWeight.w600,
           ),
         ),
-        body: Padding(
+      ),
+      body: SingleChildScrollView(
+        child: Padding(
           padding: const EdgeInsets.all(40.0),
           child: Form(
             key: _formKey,
@@ -133,7 +133,8 @@ class _RegisterFirstPageState extends State<RegisterFirstPage> {
                 ),
                 SizedBox(height: 20.0),
                 TextFormField(
-                  decoration: textInputDecoration.copyWith(hintText: 'Password'),
+                  decoration:
+                      textInputDecoration.copyWith(hintText: 'Password'),
                   obscureText: true,
                   //若密码小于6位则提示错误(formKey)
                   validator: (val) => val.length < 6
