@@ -87,8 +87,8 @@ class _MyScaffoldState extends State<MyScaffold> {
           indicatorColor: Colors.lightBlueAccent,
           unselectedLabelColor: Colors.black38,
           tabs: [
-            Tab(text: '热门'),
-            Tab(text: '关注'),
+            Tab(text: 'Hot'),
+            Tab(text: 'Future'),
           ],
         ),
       ),

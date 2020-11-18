@@ -29,7 +29,9 @@ class Details extends StatefulWidget {
 
 class _DetailsState extends State<Details> {
   int ticketsLeft;
+
   _DetailsState(this.ticketsLeft);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
