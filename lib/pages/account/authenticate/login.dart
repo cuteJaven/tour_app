@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:tour_app/services/auth.dart';
 import 'package:tour_app/shared/constants.dart';
 
-
 class LoginPage extends StatefulWidget {
   @override
   _LoginPageState createState() => _LoginPageState();
@@ -19,7 +18,7 @@ class _LoginPageState extends State<LoginPage> {
   bool _loading = false;
 
   Future<Null> _register() async {
-    if(mounted) {
+    if (mounted) {
       setState(() {
         _loading = !_loading;
       });
@@ -27,14 +26,14 @@ class _LoginPageState extends State<LoginPage> {
     if (_formKey.currentState.validate()) {
       dynamic result = await _auth.logIndWithEmailAndPassword(email, password);
       if (result == null) {
-        if(mounted) {
+        if (mounted) {
           setState(() {
             _loading = !_loading;
             error = 'could not log in with those credentials';
           });
         }
       } else {
-        if(mounted) {
+        if (mounted) {
           setState(() {
             _loading = !_loading;
           });
@@ -124,21 +123,33 @@ class _LoginPageState extends State<LoginPage> {
                     children: [
                       SizedBox(height: 20.0),
                       TextFormField(
-                        decoration: textInputDecoration.copyWith(hintText: 'Email'),
+                        decoration:
+                            textInputDecoration.copyWith(hintText: 'Email'),
                         //若邮箱为空则提示错误(formKey)
-                        validator: (val) => val.isEmpty ? 'Enter an email' : null,
+                        validator: (val) {
+                          if (val.isEmpty) {
+                            _loading = false;
+                            return 'Enter an email';
+                          }
+                          return null;
+                        },
                         onChanged: (val) {
                           email = val;
                         },
                       ),
                       SizedBox(height: 20.0),
                       TextFormField(
-                        decoration: textInputDecoration.copyWith(hintText: 'Password'),
+                        decoration:
+                            textInputDecoration.copyWith(hintText: 'Password'),
 
                         //若密码小于6位则提示错误(formKey)
-                        validator: (val) => val.length < 6
-                            ? 'Password must be at least 6 characters long'
-                            : null,
+                        validator: (val) {
+                          if (val.length < 6) {
+                            _loading = false;
+                            return 'Password must be at least 6 characters long';
+                          }
+                          return null;
+                        },
                         obscureText: true,
                         onChanged: (val) {
                           password = val;
@@ -148,8 +159,8 @@ class _LoginPageState extends State<LoginPage> {
                       Container(
                           alignment: Alignment.centerRight,
                           child: Container(
-                            padding:
-                                EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 12, vertical: 8),
                             child: Text(
                               "Forget password",
                             ),

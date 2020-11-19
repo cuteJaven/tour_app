@@ -126,7 +126,13 @@ class _RegisterFirstPageState extends State<RegisterFirstPage> {
                 TextFormField(
                   decoration: textInputDecoration.copyWith(hintText: 'Email'),
                   //若邮箱为空则提示错误(formKey)
-                  validator: (val) => val.isEmpty ? 'Enter an email' : null,
+                  validator: (val) {
+                    if (val.isEmpty) {
+                      _loading = false;
+                      return 'Enter an email';
+                    }
+                    return null;
+                  },
                   onChanged: (val) {
                     email = val;
                   },
@@ -137,9 +143,13 @@ class _RegisterFirstPageState extends State<RegisterFirstPage> {
                       textInputDecoration.copyWith(hintText: 'Password'),
                   obscureText: true,
                   //若密码小于6位则提示错误(formKey)
-                  validator: (val) => val.length < 6
-                      ? 'Password must be at least 6 characters long'
-                      : null,
+                  validator: (val) {
+                    if (val.length < 6) {
+                      _loading = false;
+                      return 'Password must be at least 6 characters long';
+                    }
+                    return null;
+                  },
                   onChanged: (val) {
                     password = val;
                   },

@@ -15,7 +15,6 @@ import 'package:tour_app/models/user.dart';
 final routes = {
   '/': (context) => Tabs(),
   '/home': (context) => HomeWrapper(),
-  '/product': (context) => SceneryPage(),
   '/scenery': (context) => SceneryPage(),
   '/food': (context) => FoodPage(),
   '/guest_house': (context) => GuestHousePage(),
@@ -26,7 +25,6 @@ final routes = {
 };
 
 Function onGenerateRoute = (settings) {
-  // 统一处理
   final String name = settings.name;
   final Function pageContentBuilder = routes[name];
   if (pageContentBuilder != null) {
@@ -46,6 +44,4 @@ Function onGenerateRoute = (settings) {
       );
     }
   }
-  //下面这句话仅防报错，没啥用
-  //return null;
 };
