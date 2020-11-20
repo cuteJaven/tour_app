@@ -5,13 +5,18 @@ import 'package:tour_app/models/popular_tours_model.dart';
 import 'package:tour_app/pages/booking/details.dart';
 import 'package:flutter/material.dart';
 import 'package:tour_app/shared/loading_widget.dart';
+import 'package:provider/provider.dart';
+import 'package:tour_app/models/user.dart';
 
 class BookingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final userData = Provider.of<UserData>(context);
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
+        leading: userData==null?Text(''):FlatButton(child: Text(userData.name)),
         title: Text(
           'Booking Now！',
           style: TextStyle(

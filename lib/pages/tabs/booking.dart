@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:tour_app/pages/account/authenticate/authenticate.dart';
 import 'package:tour_app/pages/booking/booking_page.dart';
 import 'package:tour_app/models/user.dart';
+import 'package:tour_app/services/database.dart';
 
 class BookingWrapper extends StatelessWidget {
   @override
@@ -13,7 +14,10 @@ class BookingWrapper extends StatelessWidget {
     if (user == null) {
       return AuthenticatePage();
     } else {
-      return BookingPage();
+      return StreamProvider<UserData>.value(
+        value: DatabaseService(uid: user.uid).userDataStream,
+        child: BookingPage(),
+      );
     }
   }
 }
