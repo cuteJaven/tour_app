@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:tour_app/shared/snack_bar1.dart';
-import 'package:tour_app/services/auth.dart';
 import 'package:tour_app/shared/constants.dart';
 
 class RegisterSecondPage extends StatelessWidget {
@@ -34,7 +33,6 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
-  final AuthService _auth = AuthService();
 
   //text field state
   String code = '';

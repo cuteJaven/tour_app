@@ -16,7 +16,9 @@ class BookingPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        leading: userData==null?Text(''):FlatButton(child: Text(userData.name)),
+        leading: userData == null
+            ? Text('')
+            : FlatButton(onPressed: () {}, child: Text(userData.name)),
         title: Text(
           'Booking Now！',
           style: TextStyle(
