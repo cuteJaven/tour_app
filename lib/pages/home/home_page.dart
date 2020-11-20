@@ -16,7 +16,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-
     final user = Provider.of<User>(context);
 
     return StreamProvider<UserData>.value(
@@ -27,7 +26,6 @@ class _HomePageState extends State<HomePage> {
 }
 
 class MyScaffold extends StatefulWidget {
-
   final int index = 0;
 
   @override
@@ -36,137 +34,143 @@ class MyScaffold extends StatefulWidget {
 
 class _MyScaffoldState extends State<MyScaffold> {
   int index;
-  final GlobalKey<ScaffoldState> _scaffoldKey=GlobalKey();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
   List _pageList = [SceneryPage(), GuestHousePage(), FoodPage()];
+
   _MyScaffoldState(this.index);
 
   @override
   Widget build(BuildContext context) {
     final userData = Provider.of<UserData>(context);
 
-
     return DefaultTabController(
         length: 2,
-      child:Scaffold(
-      //backgroundColor: Colors.lightBlueAccent,
-      drawerScrimColor: Colors.white,
-      key: _scaffoldKey,
-      appBar: AppBar(
-        /// 通过可监听点击的IconButton传入widget，
-        /// 并在onPressed中处理drawer开启，借助于GlobalKey
-        leading: new IconButton(
-          icon: new Container(
-            padding: EdgeInsets.all(3.0),
-            child: new CircleAvatar(
-                radius: 30.0, backgroundImage: userData==null?AssetImage("images/bizhi.jpg"):NetworkImage(userData.avatar)),
+        child: Scaffold(
+          //backgroundColor: Colors.lightBlueAccent,
+          drawerScrimColor: Colors.white,
+          key: _scaffoldKey,
+          appBar: AppBar(
+            // 通过可监听点击的IconButton传入widget，
+            // 并在onPressed中处理drawer开启，借助于GlobalKey
+            leading: FlatButton(
+              onPressed: () {
+                _scaffoldKey.currentState.openDrawer();
+              },
+              child: userData == null ? Text('') : Text(userData.name),
+            ),
+            centerTitle: true,
+            title: Text(
+              'Tour app',
+              style: TextStyle(
+                  color: Colors.lightBlueAccent, fontWeight: FontWeight.w600),
+            ),
+            actions: [
+              IconButton(
+                icon: Icon(
+                  Icons.ac_unit,
+                  color: Colors.lightBlueAccent,
+                ),
+                onPressed: () {
+                  print(index);
+                },
+              )
+            ],
+            bottom: TabBar(
+              //isScrollable: true,
+              labelColor: Colors.lightBlueAccent,
+              indicatorColor: Colors.lightBlueAccent,
+              unselectedLabelColor: Colors.black38,
+              tabs: [
+                Tab(text: 'Hot'),
+                Tab(text: 'Future'),
+              ],
+            ),
           ),
-          onPressed: () {
-            _scaffoldKey.currentState.openDrawer();
-          },
-        ),
-        centerTitle: true,
-        title: Text(
-          'Tour app',
-          style: TextStyle(
-              color: Colors.lightBlueAccent, fontWeight: FontWeight.w600),
-        ),
-        actions: [
-          IconButton(
-            icon: Icon(
-              Icons.ac_unit,
-              color: Colors.lightBlueAccent,
-            ),
-            onPressed: () {
-              print(index);
-            },
-          )
-        ],
-        bottom: TabBar(
-          //isScrollable: true,
-          labelColor: Colors.lightBlueAccent,
-          indicatorColor: Colors.lightBlueAccent,
-          unselectedLabelColor: Colors.black38,
-          tabs: [
-            Tab(text: 'Hot'),
-            Tab(text: 'Future'),
-          ],
-        ),
-      ),
-      body: TabBarView(
-        children: [
-          _pageList[index],
-          Container(
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                  image: AssetImage("images/bizhi2.jpg"), fit: BoxFit.cover),
-            ),
-            child: Text('Welcome',style: TextStyle(color: Colors.white),textAlign: TextAlign.center),
+          body: TabBarView(
+            children: [
+              _pageList[index],
+              Container(
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage("images/bizhi2.jpg"),
+                      fit: BoxFit.cover),
+                ),
+                child: Text('Welcome',
+                    style: TextStyle(color: Colors.white),
+                    textAlign: TextAlign.center),
+              ),
+            ],
           ),
-        ],
-      ),
-      drawer: Drawer(
-        child: Column(
-          //mainAxisAlignment: MainAxisAlignment.center,
-          //crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            UserAccountsDrawerHeader(
-              accountName: userData==null?Text(''):Text(userData.name),
-              accountEmail: userData==null?Text(''):Text(userData.description),
-              currentAccountPicture: CircleAvatar(
-                backgroundImage: userData==null?AssetImage("images/bizhi.jpg"):NetworkImage(userData.avatar),
-              ),
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: userData==null?AssetImage("images/fengjing.jpg"):NetworkImage(userData.backUrl), fit: BoxFit.cover),
-              ),
+          drawer: Drawer(
+            child: Column(
+              //mainAxisAlignment: MainAxisAlignment.center,
+              //crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                UserAccountsDrawerHeader(
+                  accountName:
+                      userData == null ? Text('') : Text(userData.name,style: TextStyle(color: Colors.white),),
+                  accountEmail:
+                      userData == null ? Text('') : Text(userData.description,style: TextStyle(color: Colors.white),),
+                  currentAccountPicture: CircleAvatar(
+                    backgroundImage: userData == null
+                        ? AssetImage("images/bizhi.jpg")
+                        : NetworkImage(userData.avatar),
+                  ),
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image: userData == null
+                            ? AssetImage("images/fengjing.jpg")
+                            : NetworkImage(userData.backUrl),
+                        fit: BoxFit.cover),
+                  ),
+                ),
+                ListTile(
+                  leading: CircleAvatar(
+                    child: Icon(Icons.ac_unit),
+                  ),
+                  title: Text('Scenery'),
+                  onTap: () {
+                    if (mounted) {
+                      setState(() {
+                        index = 0;
+                        Navigator.pop(context);
+                      });
+                    }
+                  },
+                ),
+                Divider(),
+                ListTile(
+                  leading: CircleAvatar(
+                    child: Icon(Icons.home),
+                  ),
+                  title: Text('GuestHouse'),
+                  onTap: () {
+                    if (mounted) {
+                      setState(() {
+                        index = 1;
+                        Navigator.pop(context);
+                      });
+                    }
+                  },
+                ),
+                Divider(),
+                ListTile(
+                  leading: CircleAvatar(
+                    child: Icon(Icons.fastfood),
+                  ),
+                  title: Text('Food'),
+                  onTap: () {
+                    if (mounted) {
+                      setState(() {
+                        index = 2;
+                        Navigator.pop(context);
+                      });
+                    }
+                  },
+                ),
+              ],
             ),
-            ListTile(
-              leading: CircleAvatar(
-                child: Icon(Icons.ac_unit),
-              ),
-              title: Text('Scenery'),
-              onTap: () {
-                if (mounted) {
-                  setState(() {
-                    index = 0;
-                    Navigator.pop(context);
-                  });
-                }
-              },
-            ),
-            Divider(),
-            ListTile(
-              leading: CircleAvatar(
-                child: Icon(Icons.home),
-              ),
-              title: Text('GuestHouse'),
-              onTap: () {
-                if (mounted) {
-                  setState(() {
-                    index = 1;
-                    Navigator.pop(context);
-                  });
-                }
-              },
-            ),
-            Divider(),
-            ListTile(
-              leading: CircleAvatar(
-                child: Icon(Icons.fastfood),
-              ),
-              title: Text('Food'),
-              onTap: () {
-                if (mounted) {
-                  setState(() {
-                    index = 2;
-                    Navigator.pop(context);
-                  });
-                }
-              },
-            ),
-          ],
-        ),
-      ),
-    ));
+          ),
+        ));
   }
 }

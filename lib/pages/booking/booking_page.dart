@@ -4,6 +4,7 @@ import 'package:tour_app/models/country_model.dart';
 import 'package:tour_app/models/popular_tours_model.dart';
 import 'package:tour_app/pages/booking/details.dart';
 import 'package:flutter/material.dart';
+import 'package:tour_app/services/database.dart';
 import 'package:tour_app/shared/loading_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:tour_app/models/user.dart';
@@ -158,18 +159,23 @@ class PopularTours extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<User>(context);
     return GestureDetector(
       onTap: () {
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => Details(
-                      imgUrl: imgUrl,
-                      placeName: title,
-                      rating: rating,
-                      ticketsLeft: ticketsLeft,
-                      index: index,
-                    )));
+                builder: (context) => StreamProvider<UserData>.value(
+                    value: DatabaseService(uid: user.uid).userDataStream,
+                    builder: (context, snapshot) {
+                      return Details(
+                        imgUrl: imgUrl,
+                        placeName: title,
+                        rating: rating,
+                        ticketsLeft: ticketsLeft,
+                        index: index,
+                      );
+                    })));
       },
       child: Container(
         margin: EdgeInsets.only(bottom: 8),

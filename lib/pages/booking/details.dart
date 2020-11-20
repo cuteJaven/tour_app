@@ -1,5 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:provider/provider.dart';
+import 'package:tour_app/models/user.dart';
 import 'package:tour_app/services/booking_data.dart';
 import 'package:tour_app/models/country_model.dart';
 import 'package:flutter/material.dart';
@@ -34,6 +36,8 @@ class _DetailsState extends State<Details> {
 
   @override
   Widget build(BuildContext context) {
+    final userData = Provider.of<UserData>(context);
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
@@ -74,6 +78,9 @@ class _DetailsState extends State<Details> {
                                   ),
                                 ),
                               ),
+                              userData == null
+                                  ? Text('')
+                                  : FlatButton(onPressed: () {}, child: Text(userData.name,style: TextStyle(color: Colors.white),)),
                               Spacer(),
                               Icon(
                                 Icons.share,

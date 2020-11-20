@@ -22,6 +22,7 @@ final routes = {
   '/register1': (context) => RegisterFirstPage(),
   '/register2': (context) => RegisterSecondPage(),
   '/settings': (context) => SettingsForm(),
+
 };
 
 Function onGenerateRoute = (settings) {
